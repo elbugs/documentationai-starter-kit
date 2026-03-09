@@ -1,17 +1,21 @@
 ---
 title: "Referencia de API"
-description: "Complete technical documentation of the Unified PMS REST API"
+description: "Documentación técnica de la API REST de Unified PMS para integración con sistemas externos."
 ---
 
-Complete technical documentation of the REST API. All endpoints, parameters, authentication and examples.
+Documentación técnica de la API REST de Unified PMS para integración con sistemas externos.
 
-## Authentication
+<Callout kind="info">
+  La documentación completa de la API está en desarrollo. A continuación se describen los endpoints principales disponibles.
+</Callout>
 
-The API uses **Bearer Token** authentication. To obtain a token:
+## Autenticación
+
+La API utiliza autenticación mediante **Bearer Token**. Para obtener un token:
 
 <Steps>
   <Step title="Obtener token" icon="key">
-    Realiza una petición POST al endpoint de login:
+    Realiza una petición POST al endpoint de login con tus credenciales:
 
 ```bash
 curl -X POST https://your-app.com/api/auth/login \
@@ -28,429 +32,69 @@ Authorization: Bearer <token>
   </Step>
 </Steps>
 
-<Callout kind="info">
-  La mayoría de endpoints requieren el header `x-organization-id` para identificar la organización activa.
-</Callout>
+## Endpoints principales
 
-**Respuesta de login:**
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIs...",
-  "user": { "id": "uuid", "email": "tu@email.com", "fullName": "Tu Nombre" }
-}
-```
+### Reservas
 
----
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/bookings` | Lista de reservas |
+| GET | `/api/bookings/:id` | Detalle de reserva |
+| POST | `/api/bookings` | Crear reserva |
+| PATCH | `/api/bookings/:id` | Actualizar reserva |
 
-## 1. Autenticación y Acceso
+### Habitaciones y disponibilidad
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| POST | `/api/auth/register` | Registro de usuario | No |
-| POST | `/api/auth/login` | Inicio de sesión | No |
-| POST | `/api/auth/logout` | Cerrar sesión | Sí |
-| GET | `/api/auth/me` | Obtener usuario autenticado | Sí |
-| POST | `/api/auth/update-password` | Cambiar contraseña | Sí |
-| GET | `/api/auth/google/status` | Estado de Google OAuth | No |
-| GET | `/api/auth/google` | Iniciar OAuth con Google | No |
-| POST | `/api/access-requests` | Solicitar acceso a la plataforma | No |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/rooms` | Lista de habitaciones |
+| GET | `/api/availability` | Consultar disponibilidad |
 
-### POST /api/auth/register
+### Huéspedes
 
-| Parámetro | Tipo | Requerido | Descripción |
-|-----------|------|-----------|-------------|
-| email | string | Sí | Email del usuario |
-| password | string | Sí | Contraseña (mín. 6 caracteres) |
-| fullName | string | Sí | Nombre completo |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/guests` | Lista de huéspedes |
+| GET | `/api/guests/:id` | Detalle de huésped |
+| POST | `/api/guests` | Registrar huésped |
 
-### POST /api/auth/login
+### Housekeeping
 
-| Parámetro | Tipo | Requerido | Descripción |
-|-----------|------|-----------|-------------|
-| email | string | Sí | Email del usuario |
-| password | string | Sí | Contraseña |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/housekeeping/rooms` | Estado de limpieza de habitaciones |
+| PATCH | `/api/housekeeping/rooms/:id` | Actualizar estado de habitación |
 
-**Respuesta:** `{ token: string, user: User }`
+### Tarifas
 
----
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/rates` | Lista de tarifas |
+| PATCH | `/api/rates/:id` | Actualizar tarifa |
 
-## 2. Perfil y Organizaciones
+### Informes
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/profile` | Obtener perfil actual | Sí |
-| PATCH | `/api/profile` | Actualizar perfil | Sí |
-| POST | `/api/profile/switch-organization` | Cambiar organización activa | Sí |
-| GET | `/api/organizations` | Lista de organizaciones | Sí |
-| GET | `/api/organizations/:id` | Organización por ID | Sí |
-| POST | `/api/organizations` | Crear organización | Sí |
-| PATCH | `/api/organizations/:id` | Actualizar organización | Sí |
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/reports/occupancy` | Informe de ocupación |
+| GET | `/api/reports/arrivals` | Informe de llegadas |
+| GET | `/api/reports/departures` | Informe de salidas |
+| GET | `/api/reports/invoices` | Informe de facturación |
 
----
-
-## 3. Clientes
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/clients` | Lista de clientes | Sí |
-| GET | `/api/clients/:id` | Cliente por ID | Sí |
-| POST | `/api/clients` | Crear cliente | Sí |
-| PATCH | `/api/clients/:id` | Actualizar cliente | Sí |
-| DELETE | `/api/clients/:id` | Eliminar cliente | Sí |
-| GET | `/api/clients/:id/dependencies` | Dependencias del cliente | Sí |
-| GET | `/api/client-overview/:id` | Vista general del cliente | Sí |
-
-### POST /api/clients
-
-| Parámetro | Tipo | Requerido | Descripción |
-|-----------|------|-----------|-------------|
-| name | string | Sí | Nombre del cliente |
-| email | string | No | Email |
-| phone | string | No | Teléfono |
-| isCompany | boolean | No | Es empresa (default: false) |
-| taxId | string | No | NIF/CIF |
-| address | string | No | Dirección |
-
----
-
-## 4. Expedientes (Cases)
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/cases` | Lista de expedientes | Sí |
-| GET | `/api/cases/:id` | Expediente por ID | Sí |
-| POST | `/api/cases` | Crear expediente | Sí |
-| PATCH | `/api/cases/:id` | Actualizar expediente | Sí |
-| DELETE | `/api/cases/:id` | Eliminar expediente | Sí |
-| GET | `/api/cases/:id/activity` | Actividad del expediente | Sí |
-| GET | `/api/cases/export-altas` | Exportar expedientes | Sí |
-
-### POST /api/cases
-
-| Parámetro | Tipo | Requerido | Descripción |
-|-----------|------|-----------|-------------|
-| caseNumber | string | Sí | Número de expediente |
-| caseType | string | No | Tipo: civil, penal, laboral, mercantil, administrativo, familiar |
-| clientId | string | No | UUID del cliente |
-| opposingParty | string | No | Parte contraria |
-| status | string | No | Estado: open, in_progress, closed, archived |
-| description | string | No | Descripción del caso |
-| judicialBody | string | No | Órgano judicial |
-| judicialBodyNumber | string | No | Número del órgano |
-| judicialDistrict | string | No | Partido judicial |
-| procedureType | string | No | Tipo de procedimiento |
-| courtFileNumber | string | No | Número de autos (formato 0000/00) |
-| assignedLawyerId | string | No | UUID del abogado responsable |
-
----
-
-## 5. Tareas
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/tasks` | Lista de tareas | Sí |
-| GET | `/api/tasks/:id` | Tarea por ID | Sí |
-| POST | `/api/tasks` | Crear tarea | Sí |
-| PATCH | `/api/tasks/:id` | Actualizar tarea | Sí |
-| DELETE | `/api/tasks/:id` | Eliminar tarea | Sí |
-
-### Query params para GET /api/tasks
-
-| Parámetro | Tipo | Descripción |
-|-----------|------|-------------|
-| caseId | string | Filtrar por expediente |
-| status | string | Filtrar por estado |
-| assignedTo | string | Filtrar por asignado |
-
----
-
-## 6. Documentos
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/documents` | Lista de documentos | Sí |
-| GET | `/api/documents/:id` | Documento por ID | Sí |
-| GET | `/api/documents/:id/file` | Descargar archivo | Sí |
-| POST | `/api/documents` | Crear documento | Sí |
-| DELETE | `/api/documents/:id` | Eliminar documento | Sí |
-| PATCH | `/api/documents/:id/client-visible` | Cambiar visibilidad para cliente | Sí |
-
----
-
-## 7. Facturación
-
-### Presupuestos (Quotes)
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/quotes` | Lista de presupuestos | Sí |
-| GET | `/api/quotes/:id` | Presupuesto por ID | Sí |
-| POST | `/api/quotes` | Crear presupuesto | Sí |
-| PATCH | `/api/quotes/:id` | Actualizar presupuesto | Sí |
-| DELETE | `/api/quotes/:id` | Eliminar presupuesto | Sí |
-| GET | `/api/quote-items` | Items de presupuesto | Sí |
-| POST | `/api/quote-items` | Crear item | Sí |
-| DELETE | `/api/quote-items` | Eliminar items | Sí |
-
-### Facturas (Invoices)
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/invoices` | Lista de facturas | Sí |
-| GET | `/api/invoices/:id` | Factura por ID | Sí |
-| POST | `/api/invoices` | Crear factura | Sí |
-| PATCH | `/api/invoices/:id` | Actualizar factura | Sí |
-| DELETE | `/api/invoices/:id` | Eliminar factura | Sí |
-
-### Configuración fiscal
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/billing-profiles` | Perfiles de facturación | Sí |
-| POST | `/api/billing-profiles` | Crear perfil | Sí |
-| PATCH | `/api/billing-profiles/:id` | Actualizar perfil | Sí |
-| GET | `/api/number-series` | Series de numeración | Sí |
-| POST | `/api/number-series` | Crear serie | Sí |
-| PATCH | `/api/number-series/:id` | Actualizar serie | Sí |
-| DELETE | `/api/number-series/:id` | Eliminar serie | Sí |
-| GET | `/api/billing-concepts` | Conceptos de facturación | Sí |
-| POST | `/api/billing-concepts` | Crear concepto | Sí |
-| PATCH | `/api/billing-concepts/:id` | Actualizar concepto | Sí |
-| DELETE | `/api/billing-concepts/:id` | Eliminar concepto | Sí |
-| GET | `/api/tax-configurations` | Configuraciones de impuestos | Sí |
-| POST | `/api/tax-configurations` | Crear configuración | Sí |
-| PATCH | `/api/tax-configurations/:id` | Actualizar configuración | Sí |
-| DELETE | `/api/tax-configurations/:id` | Eliminar configuración | Sí |
-
----
-
-## 8. Contabilidad
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/accounting/dashboard` | Dashboard contable | Sí |
-| GET | `/api/accounting/expenses` | Lista de gastos | Sí |
-| POST | `/api/accounting/expenses` | Crear gasto | Sí |
-| PATCH | `/api/accounting/expenses/:id` | Actualizar gasto | Sí |
-| POST | `/api/accounting/expenses/:id/approve` | Aprobar gasto | Sí |
-| DELETE | `/api/accounting/expenses/:id` | Eliminar gasto | Sí |
-| POST | `/api/accounting/expenses/upload` | Subir y procesar factura (OCR) | Sí |
-| GET | `/api/accounting/journal-entries` | Asientos contables | Sí |
-| GET | `/api/accounting/journal-entries/export` | Exportar libro diario (CSV) | Sí |
-| GET | `/api/accounting/bank-transactions` | Transacciones bancarias | Sí |
-| POST | `/api/accounting/bank-transactions/:id/reconcile` | Conciliar transacción | Sí |
-| GET | `/api/accounting/trust-accounts` | Cuentas de provisión | Sí |
-| POST | `/api/accounting/trust-accounts` | Crear cuenta de provisión | Sí |
-| POST | `/api/accounting/trust-accounts/:id/deposit` | Depósito en provisión | Sí |
-| POST | `/api/accounting/trust-accounts/:id/withdraw` | Retirada de provisión | Sí |
-| GET | `/api/accounting/vendors` | Proveedores | Sí |
-| POST | `/api/accounting/vendors` | Crear proveedor | Sí |
-| GET | `/api/accounting/accounts` | Plan de cuentas | Sí |
-
----
-
-## 9. Reservas (Scheduling)
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/scheduling-profile` | Perfil de reservas | Sí |
-| POST | `/api/scheduling-profile` | Crear perfil | Sí |
-| PATCH | `/api/scheduling-profile` | Actualizar perfil | Sí |
-| GET | `/api/scheduling-services` | Servicios de reserva | Sí |
-| POST | `/api/scheduling-services` | Crear servicio | Sí |
-| PATCH | `/api/scheduling-services/:id` | Actualizar servicio | Sí |
-| DELETE | `/api/scheduling-services/:id` | Eliminar servicio | Sí |
-| GET | `/api/availability-rules` | Reglas de disponibilidad | Sí |
-| POST | `/api/availability-rules` | Crear regla | Sí |
-| PATCH | `/api/availability-rules/:id` | Actualizar regla | Sí |
-| DELETE | `/api/availability-rules/:id` | Eliminar regla | Sí |
-| GET | `/api/bookings` | Lista de reservas | Sí |
-| POST | `/api/bookings` | Crear reserva (público) | No |
-
----
-
-## 10. Manager e Inbox
-
-### Manager Inbox (correos entrantes con IA)
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/manager/inbox` | Obtener inbox y dirección | Sí |
-| GET | `/api/manager/emails` | Lista de correos | Sí |
-| GET | `/api/manager/emails/count` | Correos pendientes | Sí |
-| GET | `/api/manager/emails/:id` | Detalle de correo | Sí |
-| POST | `/api/manager/emails/:id/approve` | Aprobar y crear expediente | Sí |
-| POST | `/api/manager/emails/:id/reject` | Rechazar correo | Sí |
-| POST | `/api/manager/emails/:id/reanalyze` | Re-analizar con IA | Sí |
-| POST | `/api/manager/emails/import-resend` | Importar por Resend ID | Sí |
-
-### Análisis de documentos
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/doc-analysis/clients` | Clientes de análisis | Sí |
-| POST | `/api/doc-analysis/clients` | Crear cliente | Sí |
-| GET | `/api/doc-analysis/clients/:id/questions` | Preguntas del cliente | Sí |
-| POST | `/api/doc-analysis/clients/:id/questions` | Guardar preguntas | Sí |
-| POST | `/api/doc-analysis/clients/:id/documents` | Subir documentos | Sí |
-| GET | `/api/doc-analysis/clients/:id/export` | Exportar análisis (CSV) | Sí |
-
----
-
-## 11. Inteligencia Artificial
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/ai/status` | Estado de la IA | No |
-| POST | `/api/ai/extract-case-from-documents` | Extraer datos de caso desde documentos | Sí |
-| POST | `/api/ai/extract-organismo` | Extraer datos de órgano judicial | Sí |
-| POST | `/api/ai/generate-case-description` | Generar descripción de expediente | Sí |
-| POST | `/api/ai/analyze-document` | Analizar documento | Sí |
-| POST | `/api/ai/analyze-document-stream` | Analizar documento (streaming SSE) | Sí |
-| POST | `/api/ai/case-assistant` | Asistente IA de expediente | Sí |
-| POST | `/api/ai/case-assistant-stream` | Asistente IA (streaming SSE) | Sí |
-| POST | `/api/ai/generate-legal-document` | Generar documento legal (SSE) | Sí |
-| GET | `/api/ai-settings` | Configuración de IA | Sí |
-| PUT | `/api/ai-settings` | Actualizar configuración de IA | Sí |
-| GET | `/api/ai-usage/summary` | Resumen de uso de IA | Sí |
-
----
-
-## 12. Calendario y Reuniones
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/calendar-events` | Eventos del calendario | Sí |
-| POST | `/api/calendar/create-event` | Crear evento | Sí |
-| POST | `/api/calendar/delete-event` | Eliminar evento | Sí |
-| POST | `/api/calendar/sync-task` | Sincronizar tarea con calendario | Sí |
-| POST | `/api/calendar/sync-case-date` | Sincronizar fecha de expediente | Sí |
-| GET | `/api/meetings` | Lista de reuniones | Sí |
-| POST | `/api/meeting/create` | Crear reunión (con Recall bot) | Sí |
-| DELETE | `/api/meeting/:meetingId` | Eliminar reunión | Sí |
-| GET | `/api/google-calendar-connections` | Conexiones Google Calendar | Sí |
-| GET | `/api/caldav-connections` | Conexiones CalDAV | Sí |
-
----
-
-## 13. LexNet
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/lexnet/notifications` | Notificaciones judiciales | Sí |
-| GET | `/api/lexnet/notifications/unread-count` | No leídas | Sí |
-| POST | `/api/lexnet/notifications` | Crear notificación | Sí |
-| PATCH | `/api/lexnet/notifications/:id` | Marcar como leída | Sí |
-| DELETE | `/api/lexnet/notifications/:id` | Eliminar | Sí |
-| GET | `/api/lexnet/submissions` | Envíos telemáticos | Sí |
-| POST | `/api/lexnet/submissions` | Crear envío | Sí |
-
----
-
-## 14. Automatizaciones
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/automations` | Lista de automatizaciones | Sí |
-| POST | `/api/automations` | Crear automatización | Sí |
-| PATCH | `/api/automations/:id` | Actualizar automatización | Sí |
-| DELETE | `/api/automations/:id` | Eliminar automatización | Sí |
-| GET | `/api/automations/:id/executions` | Ejecuciones | Sí |
-
----
-
-## 15. Formularios
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/forms` | Lista de formularios | Sí |
-| GET | `/api/forms/:id` | Formulario por ID | Sí |
-| POST | `/api/forms` | Crear formulario | Sí |
-| PUT | `/api/forms/:id` | Actualizar formulario | Sí |
-| DELETE | `/api/forms/:id` | Eliminar formulario | Sí |
-| GET | `/api/forms/:id/responses` | Respuestas | Sí |
-| GET | `/api/public/forms/:slug` | Formulario público | No |
-| POST | `/api/public/forms/:slug/responses` | Enviar respuesta | No |
-
----
-
-## 16. Portales públicos
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/portal/invoice/:token` | Portal de factura | No |
-| GET | `/api/portal/quote/:token` | Portal de presupuesto | No |
-| POST | `/api/portal/quote/:token/accept` | Aceptar presupuesto | No |
-| POST | `/api/portal/quote/:token/reject` | Rechazar presupuesto | No |
-| GET | `/api/portal/client/:token` | Portal del cliente | No |
-
----
-
-## 17. Pagos (Stripe)
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| POST | `/api/payment/booking-checkout` | Checkout de reserva | No |
-| POST | `/api/payment/verify` | Verificar pago de reserva | No |
-| POST | `/api/payment/refund` | Reembolso | Sí |
-| POST | `/api/payment/invoice-checkout` | Checkout de factura | No |
-| POST | `/api/payment/invoice-verify` | Verificar pago de factura | No |
-
----
-
-## 18. Suscripciones (Chargebee)
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/subscription/status` | Estado y planes | No |
-| GET | `/api/subscription` | Suscripción actual | Sí |
-| POST | `/api/subscription/checkout` | Crear checkout | Sí |
-| POST | `/api/subscription/portal` | Portal de cliente | Sí |
-| POST | `/api/subscription/cancel` | Cancelar | Sí |
-| POST | `/api/subscription/upgrade` | Cambiar plan | Sí |
-
----
-
-## 19. Webhooks
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| POST | `/api/webhooks/stripe` | Webhook de Stripe | Firma |
-| POST | `/api/webhooks/chargebee` | Webhook de Chargebee | No |
-| POST | `/api/webhooks/recall` | Webhook de Recall.ai | No |
-| POST | `/api/webhooks/resend/inbound` | Emails entrantes (Resend) | No |
-
----
-
-## 20. Informes
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| GET | `/api/reports/productivity` | Productividad por abogado | Sí |
-| GET | `/api/reports/case-analytics` | Analíticas de expedientes | Sí |
-| GET | `/api/reports/financial-summary` | Resumen financiero | Sí |
-
----
-
-## Códigos de error
+## Códigos de respuesta
 
 | Código | Significado |
 |--------|-------------|
 | 200 | OK |
 | 201 | Creado |
-| 400 | Petición inválida (parámetros incorrectos) |
-| 401 | No autenticado (token inválido o expirado) |
-| 403 | No autorizado (sin permisos) |
+| 400 | Petición inválida |
+| 401 | No autenticado |
+| 403 | No autorizado |
 | 404 | Recurso no encontrado |
-| 409 | Conflicto (recurso ya existe) |
 | 500 | Error interno del servidor |
 
----
+## Notas
 
-## Notas generales
-
-- **Paginación:** La mayoría de endpoints de lista aceptan `limit` y `offset` como query params.
+- **Paginación:** Los endpoints de lista aceptan `limit` y `offset` como query params.
 - **Filtros de fecha:** Usa `dateFrom` y `dateTo` en formato ISO 8601 (`2026-01-01`).
-- **Organización:** Incluir `x-organization-id` en el header para endpoints que lo requieran.
-- **Streaming SSE:** Los endpoints de IA que terminan en `-stream` devuelven Server-Sent Events.
-- **Uploads:** Usa `/api/uploads/request-url` para obtener una URL firmada y subir archivos.
+- **Property code:** Incluir `x-pcode` en el header para identificar la propiedad.
