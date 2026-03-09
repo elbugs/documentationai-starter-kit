@@ -1,26 +1,22 @@
 ---
 title: "Referencia de API"
-description: "Documentación técnica de la API REST de Unified PMS para integración con sistemas externos."
+description: "Documentación técnica completa de la API REST de Unified PMS con todos los endpoints disponibles."
 ---
 
-Documentación técnica de la API REST de Unified PMS para integración con sistemas externos.
-
-<Callout kind="info">
-  La documentación completa de la API está en desarrollo. A continuación se describen los endpoints principales disponibles.
-</Callout>
+Documentación técnica de la API REST de Unified PMS. Todos los endpoints usan el prefijo `/api` y requieren autenticación Bearer Token salvo que se indique lo contrario.
 
 ## Autenticación
 
-La API utiliza autenticación mediante **Bearer Token**. Para obtener un token:
+La API utiliza autenticación mediante **Bearer Token** (JWT).
 
 <Steps>
   <Step title="Obtener token" icon="key">
-    Realiza una petición POST al endpoint de login con tus credenciales:
+    Realiza un POST al endpoint de login:
 
 ```bash
 curl -X POST https://your-app.com/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email": "tu@email.com", "password": "tu-contraseña"}'
+  -d '{"username": "tu-usuario", "password": "tu-contraseña"}'
 ```
   </Step>
   <Step title="Usar el token" icon="lock">
@@ -32,54 +28,332 @@ Authorization: Bearer <token>
   </Step>
 </Steps>
 
-## Endpoints principales
+<Callout kind="info">
+  La mayoría de endpoints requieren el parámetro `:pcode` (property code) en la URL para identificar la propiedad.
+</Callout>
 
-### Reservas
+---
 
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/api/bookings` | Lista de reservas |
-| GET | `/api/bookings/:id` | Detalle de reserva |
-| POST | `/api/bookings` | Crear reserva |
-| PATCH | `/api/bookings/:id` | Actualizar reserva |
-
-### Habitaciones y disponibilidad
+## 1. Auth
 
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| GET | `/api/rooms` | Lista de habitaciones |
-| GET | `/api/availability` | Consultar disponibilidad |
+| POST | `/api/auth/login` | Inicio de sesión |
+| POST | `/api/auth/logout` | Cerrar sesión |
+| POST | `/api/auth/refresh-token` | Refrescar token |
+| POST | `/api/auth/verify-email` | Verificar email |
+| POST | `/api/auth/forgot-password` | Recuperar contraseña |
+| POST | `/api/auth/reset-password` | Restablecer contraseña |
+| POST | `/api/auth/verify-2fa-login` | Verificar 2FA |
+| GET | `/api/auth/sessions` | Sesiones activas |
+| DELETE | `/api/auth/session/:token` | Cerrar sesión específica |
+
+---
+
+## 2. Usuarios
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/users/me` | Perfil del usuario autenticado |
+| GET | `/api/users/:pcodes/permissions` | Permisos por propiedades |
+| GET | `/api/users/:pcode` | Listar usuarios de propiedad |
+| POST | `/api/users/:pcode` | Crear usuario |
+| PUT | `/api/users/:pcode/:userId` | Actualizar usuario |
+| DELETE | `/api/users/:pcode/:userId` | Eliminar usuario |
+| PATCH | `/api/users/:pcode/block/:userId` | Bloquear usuario |
+| PATCH | `/api/users/:pcode/unblock/:userId` | Desbloquear usuario |
+| GET | `/api/users/2fa/generate` | Generar código 2FA |
+| PATCH | `/api/users/2fa/enable` | Habilitar 2FA |
+| PATCH | `/api/users/2fa/disable` | Deshabilitar 2FA |
+
+### Roles
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/users/:pcode/role` | Roles de propiedad |
+| POST | `/api/users/:pcode/role` | Crear rol |
+| PUT | `/api/users/:pcode/role/:roleId` | Actualizar rol |
+| DELETE | `/api/users/:pcode/role/:roleId` | Eliminar rol |
+| GET | `/api/users/:pcode/role/permissions` | Permisos disponibles |
+
+---
+
+## 3. Dashboard
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/dashboard/:pcodes/current-occupancy` | Ocupación actual |
+| GET | `/api/dashboard/:pcodes/income` | Ingresos |
+| GET | `/api/dashboard/:pcodes/revenue-year` | Ingresos anuales |
+| GET | `/api/dashboard/:pcodes/to-dos` | Tareas pendientes |
+
+---
+
+## 4. Reservas (Bookings)
+
+### CRUD y operaciones principales
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/bookings/:pcodes` | Listar reservas por rango de fechas |
+| GET | `/api/bookings/:pcode/search` | Buscar reservas con filtros |
+| GET | `/api/bookings/:pcode/detail/:bookingId` | Detalle de reserva |
+| POST | `/api/bookings/:pcode` | Crear reserva |
+| PUT | `/api/bookings/:pcode` | Actualizar reserva |
+| PUT | `/api/bookings/:pcode/move/:bookingId` | Mover reserva |
+| PUT | `/api/bookings/:pcode/check-in-out/:bookingId` | Check-in / Check-out |
+| PATCH | `/api/bookings/:pcode/change-status` | Cambiar estado |
+| POST | `/api/bookings/:pcode/swap-rooms` | Intercambiar habitaciones |
+| PUT | `/api/bookings/:pcode/split/:bookingId` | Dividir reserva |
+| PUT | `/api/bookings/:pcode/clone/:bookingId` | Clonar reserva |
+| PUT | `/api/bookings/:pcode/lock/:bookingId` | Bloquear reserva |
+| PUT | `/api/bookings/:pcode/unlock/:bookingId` | Desbloquear reserva |
+| PUT | `/api/bookings/:pcode/color/:bookingId` | Cambiar color |
+| POST | `/api/bookings/:pcode/group` | Agrupar reservas |
+| POST | `/api/bookings/:pcode/resize` | Redimensionar reservas |
+| PUT | `/api/bookings/:pcode/notes/:bookingId` | Actualizar notas |
+| GET | `/api/bookings/:pcode/history/:bookingId` | Historial de cambios |
 
 ### Huéspedes
 
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| GET | `/api/guests` | Lista de huéspedes |
-| GET | `/api/guests/:id` | Detalle de huésped |
-| POST | `/api/guests` | Registrar huésped |
+| GET | `/api/bookings/:pcode/guests/:bookingId` | Huéspedes de reserva |
+| DELETE | `/api/bookings/:pcode/guests/:bookingId` | Eliminar huésped |
+| POST | `/api/add-identity-card/:pcode` | Añadir DNI/pasaporte (OCR) |
 
-### Housekeeping
-
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/api/housekeeping/rooms` | Estado de limpieza de habitaciones |
-| PATCH | `/api/housekeeping/rooms/:id` | Actualizar estado de habitación |
-
-### Tarifas
+### Pagos
 
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| GET | `/api/rates` | Lista de tarifas |
-| PATCH | `/api/rates/:id` | Actualizar tarifa |
+| GET | `/api/bookings/:pcode/payments/:bookingId` | Pagos de reserva |
+| POST | `/api/bookings/:pcode/payment/:bookingId` | Añadir pago |
+| PUT | `/api/bookings/:pcode/payment/:bookingId` | Actualizar pago |
+| DELETE | `/api/bookings/:pcode/payment/:bookingId` | Eliminar pago |
+| PUT | `/api/bookings/:pcode/payment/:bookingId/refund` | Devolver pago |
+| GET | `/api/bookings/:pcode/payment/:bookingId/download/:paymentId` | Descargar recibo (PDF) |
 
-### Informes
+### Facturas
 
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| GET | `/api/reports/occupancy` | Informe de ocupación |
-| GET | `/api/reports/arrivals` | Informe de llegadas |
-| GET | `/api/reports/departures` | Informe de salidas |
-| GET | `/api/reports/invoices` | Informe de facturación |
+| GET | `/api/bookings/:pcode/invoices/:bookingId` | Facturas de reserva |
+| POST | `/api/bookings/:pcode/invoice/:bookingId` | Crear factura |
+| PUT | `/api/bookings/:pcode/invoice/:bookingId` | Actualizar factura |
+| DELETE | `/api/bookings/:pcode/invoice/:bookingId` | Eliminar factura |
+| PUT | `/api/bookings/:pcode/invoice/:bookingId/send` | Enviar por email |
+| PUT | `/api/bookings/:pcode/invoice/:bookingId/refund` | Factura rectificativa |
+| GET | `/api/bookings/:pcode/invoice/:bookingId/download/:invoiceId` | Descargar PDF |
+
+### Depósitos
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/bookings/:pcode/deposits/:bookingId` | Depósitos de reserva |
+| POST | `/api/bookings/:pcode/deposit/:bookingId` | Crear depósito |
+| PUT | `/api/bookings/:pcode/deposit/:bookingId/refund` | Devolver depósito |
+| PUT | `/api/bookings/:pcode/deposit/:bookingId/convert-to-payment` | Convertir a pago |
+
+### Productos / artículos
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/bookings/:pcode/products/:bookingId` | Productos de reserva |
+| POST | `/api/bookings/:pcode/product/:bookingId` | Añadir producto |
+| PUT | `/api/bookings/:pcode/product/:bookingId` | Actualizar producto |
+| DELETE | `/api/bookings/:pcode/product/:bookingId` | Eliminar producto |
+
+### Autoridades (policía)
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/bookings/:pcode/authority/:bookingId` | Estado de registro policial |
+| PUT | `/api/bookings/:pcode/authority/:bookingId/register` | Registrar en autoridad |
+| PUT | `/api/bookings/:pcode/authority/:bookingId/cancel` | Cancelar transacción |
+| PUT | `/api/bookings/:pcode/authority/:bookingId/retry` | Reintentar transacción |
+
+---
+
+## 5. Habitaciones (Rooms)
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/rooms/:pcode/availability` | Disponibilidad de habitaciones |
+| GET | `/api/rooms/:pcodes/availability-quantity` | Cantidad disponible |
+| PUT | `/api/rooms/:pcode/availability-quantity` | Actualizar cantidad disponible |
+| GET | `/api/rooms/:pcode/types` | Tipos de habitación |
+| GET | `/api/rooms/:pcode/prices` | Precios por habitación |
+| GET | `/api/rooms/:pcode/restrictions` | Restricciones |
+| PATCH | `/api/rooms/:pcode/status/to-clean` | Marcar como limpia |
+| PATCH | `/api/rooms/:pcode/status/to-dirty` | Marcar como sucia |
+| PATCH | `/api/rooms/:pcode/status/to-inspect` | Marcar para inspección |
+
+---
+
+## 6. Housekeeping
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/housekeeping/:pcode/rack` | Rack de housekeeping |
+| GET | `/api/housekeeping/:pcode/list` | Lista de tareas de limpieza |
+| POST | `/api/housekeeping/:pcode/change-cleaning-date` | Cambiar fecha de limpieza |
+| POST | `/api/housekeeping/:pcode/change-periodicity` | Cambiar periodicidad |
+
+---
+
+## 7. Tarifas (Rates)
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/rates/:pcode` | Tarifas por propiedad |
+| GET | `/api/rates/:pcode/prices` | Precios |
+| PUT | `/api/rates/:pcode/prices` | Actualizar precios |
+
+---
+
+## 8. Informes (Reports)
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/reports/:pcodes/bookings` | Informe de reservas |
+| GET | `/api/reports/:pcodes/bookings/totals` | Totales de reservas |
+| GET | `/api/reports/:pcodes/invoices` | Informe de facturas |
+| GET | `/api/reports/:pcodes/invoices/totals` | Totales de facturas |
+| GET | `/api/reports/:pcodes/arrivals` | Informe de llegadas |
+| GET | `/api/reports/:pcodes/departures` | Informe de salidas |
+| GET | `/api/reports/:pcodes/payments` | Informe de pagos |
+| GET | `/api/reports/:pcodes/payments/totals` | Totales de pagos |
+| GET | `/api/reports/:pcodes/origin` | Informe por origen |
+| GET | `/api/reports/:pcodes/authorities` | Informe de autoridades |
+| GET | `/api/reports/:pcodes/companies` | Informe de empresas |
+| GET | `/api/reports/:pcodes/overdues` | Informe de impagados |
+| GET | `/api/reports/:pcodes/inhouse` | Informe in-house |
+| GET | `/api/reports/:pcodes/hosts` | Informe de huéspedes |
+| GET | `/api/reports/:pcodes/articles` | Informe de artículos |
+| GET | `/api/reports/:pcodes/nationalities` | Informe de nacionalidades |
+| GET | `/api/reports/:pcodes/rental-deposits` | Informe de depósitos |
+
+---
+
+## 9. Clientes y empresas
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/customers/:pcode/search` | Buscar cliente |
+| GET | `/api/companies/:pcode` | Empresas por propiedad |
+| GET | `/api/companies/:pcode/search` | Buscar empresa |
+| GET | `/api/products/:pcode` | Productos/artículos |
+| GET | `/api/promo-codes/:pcode` | Códigos promocionales |
+
+---
+
+## 10. Propiedades y configuración
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/properties/setup-status` | Estado de configuración |
+| GET | `/api/properties/:pcodes/settings` | Settings de propiedad |
+| PUT | `/api/properties/:pcode/settings/property-details` | Actualizar detalles |
+| PUT | `/api/properties/:pcode/settings/property-logo` | Actualizar logo |
+| PUT | `/api/properties/:pcode/settings/property-location` | Actualizar ubicación |
+| PUT | `/api/properties/:pcode/settings/housekeeping` | Configuración housekeeping |
+| PUT | `/api/properties/:pcode/settings/booking/times` | Horarios check-in/out |
+| PUT | `/api/properties/:pcode/settings/communication/emails` | Emails de comunicación |
+| PUT | `/api/properties/:pcode/settings/room-type/details/:roomTypeId` | Detalles tipo de habitación |
+| PUT | `/api/properties/:pcode/settings/room-type/rooms/:roomTypeId` | Habitaciones del tipo |
+
+---
+
+## 11. Tareas (To-dos)
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| POST | `/api/to-dos/:pcode` | Crear tarea |
+| PUT | `/api/to-dos/:pcode` | Actualizar tarea |
+| DELETE | `/api/to-dos/:pcode` | Eliminar tarea |
+| PATCH | `/api/to-dos/:pcode/status/complete` | Completar tarea |
+| PATCH | `/api/to-dos/:pcode/status/to-pending` | Marcar pendiente |
+| GET | `/api/to-dos/:pcode/auto-assign` | Auto-assign de tareas |
+| POST | `/api/to-dos/:pcode/auto-assign` | Crear auto-assign |
+
+---
+
+## 12. Notificaciones
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/notifications` | Inbox de notificaciones |
+| PUT | `/api/notifications/read` | Marcar todas como leídas |
+| PUT | `/api/notifications/read/:id` | Marcar como leída |
+| DELETE | `/api/notifications/:id` | Eliminar notificación |
+| DELETE | `/api/notifications` | Eliminar todas |
+
+---
+
+## 13. Integraciones
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/integrations/:pcode` | Integraciones activas |
+| GET | `/api/integrations/:pcode/:type` | Integración por tipo |
+| PUT | `/api/integrations/:pcode` | Actualizar integración |
+| PATCH | `/api/integrations/:pcode/:type/enable` | Habilitar |
+| PATCH | `/api/integrations/:pcode/:type/disable` | Deshabilitar |
+
+---
+
+## 14. Webhooks
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/webhooks/:pcode` | Webhooks salientes |
+| POST | `/api/webhooks/:pcode` | Crear webhook |
+| PUT | `/api/webhooks/:pcode` | Actualizar webhook |
+| DELETE | `/api/webhooks/:pcode/:id` | Eliminar webhook |
+| PATCH | `/api/webhooks/:pcode/:id/enable` | Habilitar |
+| POST | `/api/webhooks/:pcode/test` | Probar webhook |
+| GET | `/api/webhooks/:pcode/:id/logs` | Logs de webhook |
+
+---
+
+## 15. API Keys
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/apikeys/:pcode` | API keys por propiedad |
+| POST | `/api/apikeys/:pcode` | Crear API key |
+| DELETE | `/api/apikeys/:pcode/:id` | Eliminar API key |
+| PATCH | `/api/apikeys/:pcode/:id/enable` | Habilitar |
+| PATCH | `/api/apikeys/:pcode/:id/disable` | Deshabilitar |
+
+---
+
+## 16. Booking Engine (público)
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| POST | `/api/booking-engine/auth` | Autenticación de propiedad | No |
+| GET | `/api/booking-engine/property` | Datos de propiedad | Token prop. |
+| GET | `/api/booking-engine/availability` | Disponibilidad | Token prop. |
+| GET | `/api/booking-engine/prices` | Precios | Token prop. |
+| GET | `/api/booking-engine/products` | Productos | Token prop. |
+| POST | `/api/booking-engine/booking` | Crear reserva | Token prop. |
+| POST | `/api/booking-engine/init-payment` | Iniciar pago | Token prop. |
+
+---
+
+## 17. Utilidades
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/api/countries` | Lista de países |
+| GET | `/api/provinces` | Lista de provincias |
+| GET | `/api/municipalities` | Lista de municipios |
+| GET | `/api/otas` | OTAs disponibles |
+| POST | `/api/ocr-document/:pcode` | Extraer datos de documento (OCR) |
+| POST | `/api/google/translation` | Traducción (Google) |
+
+---
 
 ## Códigos de respuesta
 
@@ -88,13 +362,18 @@ Authorization: Bearer <token>
 | 200 | OK |
 | 201 | Creado |
 | 400 | Petición inválida |
-| 401 | No autenticado |
-| 403 | No autorizado |
+| 401 | No autenticado (token inválido o expirado) |
+| 403 | No autorizado (sin permisos) |
 | 404 | Recurso no encontrado |
+| 409 | Conflicto |
 | 500 | Error interno del servidor |
 
-## Notas
+---
 
+## Notas generales
+
+- **Property code (`:pcode`):** Identifica la propiedad. Requerido en la mayoría de endpoints.
+- **Multi-property (`:pcodes`):** Algunos endpoints aceptan múltiples pcodes separados por coma.
 - **Paginación:** Los endpoints de lista aceptan `limit` y `offset` como query params.
 - **Filtros de fecha:** Usa `dateFrom` y `dateTo` en formato ISO 8601 (`2026-01-01`).
-- **Property code:** Incluir `x-pcode` en el header para identificar la propiedad.
+- **Versionado:** Algunos endpoints tienen versiones alternativas (`/api/v2/...`, `/api/v4/...`).
