@@ -1,15 +1,290 @@
 {
-  "name": "Starter Kit",
+  "name": "Unified PMS",
   "colors": {
     "light": {
-      "brand": "#F97316"
+      "brand": "#4F46E5"
     },
     "dark": {
-      "brand": "#FDBA74"
+      "brand": "#818CF8"
     }
   },
   "navigation": {
     "tabs": [
+      {
+        "tab": "Help Center",
+        "icon": "help-circle",
+        "groups": [
+          {
+            "group": "Inicio",
+            "icon": "home",
+            "pages": [
+              {
+                "title": "Help Center",
+                "path": "help-center",
+                "icon": "home"
+              },
+              {
+                "title": "Introducción",
+                "path": "help-center/getting-started/introduction",
+                "icon": "rocket"
+              }
+            ]
+          },
+          {
+            "group": "Principal",
+            "icon": "layout-dashboard",
+            "pages": [
+              {
+                "title": "Dashboard",
+                "path": "help-center/principal/dashboard",
+                "icon": "bar-chart"
+              }
+            ]
+          },
+          {
+            "group": "Planning",
+            "icon": "calendar",
+            "pages": [
+              {
+                "title": "Planning de Reservas",
+                "path": "help-center/planning/planning-bookings",
+                "icon": "calendar-days"
+              },
+              {
+                "title": "Disponibilidad",
+                "path": "help-center/planning/planning-availability",
+                "icon": "calendar-check"
+              }
+            ]
+          },
+          {
+            "group": "Operaciones",
+            "icon": "settings",
+            "pages": [
+              {
+                "title": "Housekeeping",
+                "path": "help-center/operaciones/housekeeping",
+                "icon": "spray-can"
+              },
+              {
+                "title": "Mensajes",
+                "path": "help-center/operaciones/messages",
+                "icon": "message-square"
+              },
+              {
+                "title": "Actividad",
+                "path": "help-center/operaciones/activity",
+                "icon": "activity"
+              },
+              {
+                "title": "Notificaciones",
+                "path": "help-center/operaciones/notifications",
+                "icon": "bell"
+              },
+              {
+                "title": "Recepción Automática",
+                "path": "help-center/operaciones/automatic-reception",
+                "icon": "smartphone"
+              }
+            ]
+          },
+          {
+            "group": "Revenue",
+            "icon": "trending-up",
+            "pages": [
+              {
+                "title": "Tarifas",
+                "path": "help-center/revenue/rates",
+                "icon": "dollar-sign"
+              },
+              {
+                "title": "Restricciones",
+                "path": "help-center/revenue/restrictions",
+                "icon": "lock"
+              }
+            ]
+          },
+          {
+            "group": "Informes",
+            "icon": "file-text",
+            "pages": [
+              {
+                "title": "Reservas",
+                "path": "help-center/informes/report-bookings",
+                "icon": "book-open"
+              },
+              {
+                "title": "Facturas",
+                "path": "help-center/informes/report-invoices",
+                "icon": "receipt"
+              },
+              {
+                "title": "Facturas Rectificativas",
+                "path": "help-center/informes/report-invoices-credit",
+                "icon": "file-minus"
+              },
+              {
+                "title": "Facturas Pendientes",
+                "path": "help-center/informes/report-invoices-pending",
+                "icon": "clock"
+              },
+              {
+                "title": "Llegadas",
+                "path": "help-center/informes/report-arrivals",
+                "icon": "log-in"
+              },
+              {
+                "title": "Salidas",
+                "path": "help-center/informes/report-departures",
+                "icon": "log-out"
+              },
+              {
+                "title": "Pagos",
+                "path": "help-center/informes/report-payments",
+                "icon": "credit-card"
+              },
+              {
+                "title": "Orígenes",
+                "path": "help-center/informes/report-origins",
+                "icon": "globe"
+              },
+              {
+                "title": "Impagados",
+                "path": "help-center/informes/report-overdues",
+                "icon": "alert-circle"
+              },
+              {
+                "title": "Contable",
+                "path": "help-center/informes/report-accounting",
+                "icon": "calculator"
+              },
+              {
+                "title": "Limpiezas",
+                "path": "help-center/informes/report-cleanings",
+                "icon": "spray-can"
+              },
+              {
+                "title": "Producción",
+                "path": "help-center/informes/report-production",
+                "icon": "trending-up"
+              },
+              {
+                "title": "Ocupación",
+                "path": "help-center/informes/report-occupancy",
+                "icon": "percent"
+              },
+              {
+                "title": "In-House",
+                "path": "help-center/informes/report-in-house",
+                "icon": "users"
+              },
+              {
+                "title": "Régimenes",
+                "path": "help-center/informes/report-boards",
+                "icon": "utensils"
+              },
+              {
+                "title": "Huéspedes",
+                "path": "help-center/informes/report-hosts",
+                "icon": "user"
+              },
+              {
+                "title": "Empresas",
+                "path": "help-center/informes/report-companies",
+                "icon": "building"
+              },
+              {
+                "title": "Wallet",
+                "path": "help-center/informes/report-wallet",
+                "icon": "wallet"
+              },
+              {
+                "title": "Cierre de Día",
+                "path": "help-center/informes/report-day-end-closing",
+                "icon": "sunset"
+              },
+              {
+                "title": "Nacionalidades",
+                "path": "help-center/informes/report-nationalities",
+                "icon": "flag"
+              },
+              {
+                "title": "Artículos",
+                "path": "help-center/informes/report-articles",
+                "icon": "package"
+              },
+              {
+                "title": "Impuestos",
+                "path": "help-center/informes/report-taxes",
+                "icon": "percent"
+              },
+              {
+                "title": "Caja Diaria",
+                "path": "help-center/informes/report-daily-cash",
+                "icon": "banknote"
+              },
+              {
+                "title": "Depósitos Alquiler",
+                "path": "help-center/informes/report-rental-deposits",
+                "icon": "key"
+              }
+            ]
+          },
+          {
+            "group": "Informes Legales",
+            "icon": "scale",
+            "pages": [
+              {
+                "title": "INE",
+                "path": "help-center/informes-legales/report-ine",
+                "icon": "file-text"
+              },
+              {
+                "title": "Policía",
+                "path": "help-center/informes-legales/report-police",
+                "icon": "shield"
+              },
+              {
+                "title": "Tasa Turística",
+                "path": "help-center/informes-legales/report-turist-tax",
+                "icon": "landmark"
+              },
+              {
+                "title": "Autoridades",
+                "path": "help-center/informes-legales/report-authorities",
+                "icon": "gavel"
+              },
+              {
+                "title": "Modelo 347",
+                "path": "help-center/informes-legales/report-model-347",
+                "icon": "file-check"
+              }
+            ]
+          },
+          {
+            "group": "Configuración",
+            "icon": "settings",
+            "pages": [
+              {
+                "title": "Configuración",
+                "path": "help-center/configuracion/settings",
+                "icon": "sliders"
+              }
+            ]
+          },
+          {
+            "group": "Marketing",
+            "icon": "megaphone",
+            "pages": [
+              {
+                "title": "Marketing",
+                "path": "help-center/marketing/marketing",
+                "icon": "megaphone"
+              }
+            ]
+          }
+        ]
+      },
       {
         "tab": "Documentation",
         "icon": "book",
@@ -29,9 +304,9 @@
                 "icon": "zap"
               },
               {
-                "title": "Components",
-                "path": "components",
-                "icon": "code"
+                "title": "Core Concepts",
+                "path": "concepts",
+                "icon": "lightbulb"
               }
             ]
           },
@@ -39,6 +314,11 @@
             "group": "Components",
             "icon": "layers",
             "pages": [
+              {
+                "title": "Overview",
+                "path": "components",
+                "icon": "code"
+              },
               {
                 "title": "Images",
                 "path": "components/images",
@@ -85,56 +365,17 @@
                 "title": "Authentication",
                 "path": "authentication",
                 "icon": "lock"
+              },
+              {
+                "title": "API Reference",
+                "path": "help-center/api/api-reference",
+                "icon": "terminal"
               }
             ]
           },
           {
             "group": "Sample Endpoints",
             "openapi": "openapi.yaml"
-          }
-        ]
-      },
-      {
-        "tab": "Help Center",
-        "icon": "help-circle",
-        "pages": [
-          {
-            "title": "Help Center",
-            "path": "help-center",
-            "icon": "home"
-          },
-          {
-            "group": "FAQs",
-            "icon": "help-circle",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Documentation Source",
-                "path": "help-center/faq/getting-started"
-              }
-            ]
-          },
-          {
-            "group": "Troubleshooting",
-            "icon": "alert-triangle",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Page Missing in Sidebar",
-                "path": "help-center/troubleshooting/install-error"
-              }
-            ]
-          },
-          {
-            "group": "Guides",
-            "icon": "book-open",
-            "expandable": false,
-            "pages": [
-              {
-                "title": "Create Your First Page",
-                "path": "help-center/guides/setup-project"
-              }
-            ]
           }
         ]
       },
