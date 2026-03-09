@@ -1,52 +1,51 @@
 ---
 title: "Restricciones"
-description: "La sección de **Restricciones** en el sistema Unified PMS permite gestionar reglas de estancia mínima y cierres de ventas, esenciales para optimizar la ocupación y maximizar ingresos."
+description: "En este artículo, exploraremos la sección de Restricciones en Unified PMS, una herramienta esencial para gestionar las reglas de estancia mínima y el cierre de ventas en el sector hotelero. Esta funcion"
 ---
 
-La sección de **Restricciones** en el sistema Unified PMS permite gestionar reglas de estancia mínima y cierres de ventas, esenciales para optimizar la ocupación y maximizar ingresos.
+En este artículo, exploraremos la sección de Restricciones en Unified PMS, una herramienta esencial para gestionar las reglas de estancia mínima y el cierre de ventas en el sector hotelero. Esta funcionalidad es crucial para optimizar la ocupación y maximizar los ingresos.
 
 ## ¿Qué es y para qué sirve?
 
-La funcionalidad de restricciones en el PMS Unified está diseñada para ayudar a los hoteles a establecer reglas específicas sobre las reservas. Esto incluye definir estancias mínimas y cerrar ventas en fechas seleccionadas para gestionar la disponibilidad de habitaciones de manera eficiente.
+La sección de Restricciones en Unified PMS permite a los administradores de hoteles establecer reglas específicas sobre la estancia mínima y el cierre de ventas. Estas configuraciones ayudan a controlar la disponibilidad de habitaciones y a gestionar las expectativas de los huéspedes de manera eficiente.
 
-<Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions.png" alt="Vista principal de restricciones" />
+<Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions.png" alt="Vista principal de la página de restricciones" />
 
-## Cómo usar las restricciones
+## Guía paso a paso
 
 <Steps>
-  <Step title="Acceder a la sección de restricciones" icon="mouse-pointer-click">
-    En el menú lateral, seleccione el icono correspondiente a **Restricciones** para abrir la sección.
+  <Step title="Acceder a la sección de Restricciones" icon="settings">
+    Para comenzar, localiza el icono de ajustes en la barra lateral izquierda y selecciona la opción correspondiente a restricciones.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions.png" alt="Acceder a restricciones" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions.png" alt="Vista principal de la página de restricciones" />
   </Step>
-  <Step title="Configurar reglas de estancia mínima" icon="settings">
-    Aunque no se muestran campos en la imagen, normalmente aquí configuraría las reglas de estancia mínima para fechas específicas.
+  <Step title="Crear una nueva API key" icon="key">
+    Si necesitas integrar servicios externos, puedes crear una nueva API key desde el modal de creación. Haz clic en **Crear API key** y sigue las instrucciones en pantalla.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions.png" alt="Configurar reglas" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions-smart-08.png" alt="Crear API key: Open create API key modal" />
   </Step>
-  <Step title="Cerrar ventas para fechas específicas" icon="calendar">
-    Utilice las opciones disponibles para cerrar ventas en fechas donde no desea aceptar nuevas reservas.
+  <Step title="Configurar la comunicación" icon="mail">
+    Explora las opciones de comunicación para gestionar cómo se envían las notificaciones a los huéspedes. Puedes crear plantillas personalizadas para diferentes situaciones.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions.png" alt="Cerrar ventas" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions-smart-11.png" alt="Comunicación: Explore communication settings" />
+  </Step>
+  <Step title="Crear una plantilla de comunicación" icon="edit">
+    Para crear una nueva plantilla de comunicación, abre el modal correspondiente y completa los campos necesarios. Esto te permitirá enviar mensajes personalizados a tus huéspedes.
+
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/restrictions-smart-12.png" alt="Crear plantilla: Open create template modal" />
   </Step>
 </Steps>
 
-<Callout kind="tip">
-  Revise regularmente las restricciones para ajustar las reglas según la demanda y eventos locales.
-</Callout>
-
-<Callout kind="info">
-  Las restricciones pueden afectar la visibilidad de su hotel en plataformas de reserva externas.
-</Callout>
-
-<Callout kind="alert">
-  Asegúrese de comunicar cualquier cambio en las restricciones a su equipo de reservas para evitar confusiones.
-</Callout>
-
 ## Preguntas frecuentes
 
-### ¿Cómo puedo cambiar una regla de estancia mínima?
-Para modificar una regla existente, acceda a la sección de restricciones y ajuste los parámetros según sea necesario.
-
-### ¿Qué sucede si cierro ventas accidentalmente?
-Puede reabrir las ventas ajustando las restricciones en la misma sección. Asegúrese de verificar las fechas antes de guardar los cambios.
+<ExpandableGroup>
+  <Expandable title="¿Cómo configuro una regla de estancia mínima?" default-open="false">
+    Para configurar una regla de estancia mínima, accede a la sección de restricciones y selecciona la opción para añadir una nueva regla. Define el número mínimo de noches y guarda los cambios.
+  </Expandable>
+  <Expandable title="¿Qué sucede si cierro las ventas para una fecha específica?" default-open="false">
+    Al cerrar las ventas para una fecha específica, no se podrán realizar nuevas reservas para esa fecha, lo que te permite gestionar la ocupación de manera más efectiva.
+  </Expandable>
+  <Expandable title="¿Puedo revertir una restricción una vez aplicada?" default-open="false">
+    Sí, puedes modificar o eliminar cualquier restricción desde la misma sección donde la creaste. Simplemente selecciona la restricción y ajusta los parámetros según sea necesario.
+  </Expandable>
+</ExpandableGroup>

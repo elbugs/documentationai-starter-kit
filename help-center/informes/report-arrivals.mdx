@@ -1,46 +1,45 @@
 ---
 title: "Informe de Llegadas"
-description: "El informe de llegadas en el sistema Unified PMS permite a los administradores de hoteles gestionar y visualizar las llegadas previstas de los huéspedes en una fecha específica, facilitando la planifica"
+description: "El informe de llegadas en Unified PMS es una herramienta esencial para gestionar las reservas y planificar las llegadas de los huéspedes. Esta sección permite visualizar las llegadas previstas por fecha"
 ---
 
-El informe de llegadas en el sistema Unified PMS permite a los administradores de hoteles gestionar y visualizar las llegadas previstas de los huéspedes en una fecha específica, facilitando la planificación y organización del personal y recursos.
+El informe de llegadas en Unified PMS es una herramienta esencial para gestionar las reservas y planificar las llegadas de los huéspedes. Esta sección permite visualizar las llegadas previstas por fecha, facilitando la organización y el control de las reservas.
 
 ## ¿Qué es y para qué sirve?
 
-El informe de llegadas es una herramienta esencial para los hoteles, ya que proporciona una vista detallada de las reservas entrantes, permitiendo a los recepcionistas y administradores anticipar las necesidades de los huéspedes y optimizar la experiencia de llegada. Esta funcionalidad es parte integral del sistema de gestión hotelera, ayudando a coordinar las operaciones diarias de manera eficiente.
+El informe de llegadas proporciona una vista detallada de las reservas entrantes, incluyendo información sobre el número de noches, adultos, niños y el estado de los pagos. Esta información es crucial para la planificación diaria del hotel.
 
-<Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-arrivals.png" alt="Vista general del informe de llegadas" />
+<Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-arrivals.png" alt="Vista principal del informe de llegadas" />
 
-## Cómo usar el Informe de Llegadas
+## Guía paso a paso
 
 <Steps>
-  <Step title="Acceder al informe de llegadas" icon="mouse-pointer-click">
-    Desde el menú lateral, seleccione el icono correspondiente para acceder a la sección de **Llegadas**. Esto le llevará a la vista principal del informe.
+  <Step title="Acceder al informe de llegadas" icon="eye">
+    Para acceder al informe de llegadas, dirígete a la sección de informes en el menú lateral y selecciona **Llegadas**.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-arrivals.png" alt="Acceso al informe de llegadas" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-arrivals-smart-00.png" alt="Vista inicial del informe de llegadas" />
   </Step>
-  <Step title="Explorar detalles de una llegada" icon="eye">
-    Haga clic en una fila de la tabla para ver los detalles de una reserva específica. Esto abrirá una nueva vista con información detallada del huésped y su reserva.
-
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-arrivals-auto-0.png" alt="Detalles de la llegada" />
+  <Step title="Filtrar por periodo" icon="calendar">
+    Utiliza los botones **Periodo anterior**, **Año anterior**, **Hoy**, **Últimos 30 días** y **Este mes** para filtrar las llegadas según el periodo deseado.
+  </Step>
+  <Step title="Buscar y agrupar" icon="search">
+    Usa el campo **Buscar columna...** para localizar reservas específicas. Puedes arrastrar y soltar encabezados para agrupar filas según tus necesidades.
+  </Step>
+  <Step title="Revisar detalles de la reserva" icon="clipboard">
+    La tabla muestra detalles como el nombre del huésped, número de reserva, importe pendiente de pago, peticiones especiales, notas internas y origen de la reserva.
   </Step>
 </Steps>
 
-<Callout kind="info">
-  Las notificaciones push están desactivadas, asegúrese de activarlas si desea recibir alertas en tiempo real.
-</Callout>
-
-<Callout kind="tip">
-  Use los filtros guardados para personalizar la vista según sus necesidades específicas.
-</Callout>
-
 ## Preguntas frecuentes
 
-### ¿Cómo puedo filtrar las llegadas por fecha?
-Puede utilizar los botones de **Hoy**, **Últimos 30 días** o **Este mes** para ajustar rápidamente el periodo de visualización.
-
-### ¿Qué información se muestra en los detalles de la llegada?
-La vista detallada incluye información como el nombre del huésped, fechas de llegada y salida, régimen de estancia, y políticas de cancelación, entre otros datos relevantes.
-
-### ¿Puedo crear un pago o depósito desde esta vista?
-Sí, en la sección de **Pagos** y **Depósitos** puede crear nuevas transacciones directamente desde la vista detallada de la reserva.
+<ExpandableGroup>
+  <Expandable title="¿Cómo puedo activar las notificaciones push?" default-open="false">
+    Las notificaciones push se pueden activar desde la configuración del sistema. Asegúrate de que estén habilitadas para recibir alertas en tiempo real.
+  </Expandable>
+  <Expandable title="¿Qué significa el estado 'Pendiente de pago'?" default-open="false">
+    El estado 'Pendiente de pago' indica que el huésped aún no ha completado el pago total de su reserva. Es importante verificar este estado antes de la llegada.
+  </Expandable>
+  <Expandable title="¿Cómo puedo guardar un filtro personalizado?" default-open="false">
+    Después de aplicar los filtros deseados, haz clic en **Filtros guardados** para guardar la configuración actual para uso futuro.
+  </Expandable>
+</ExpandableGroup>

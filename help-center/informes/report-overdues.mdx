@@ -1,55 +1,51 @@
 ---
 title: "Informe de Impagados"
-description: "El informe de impagados en Unified PMS permite a los administradores de hoteles gestionar y visualizar las reservas con pagos vencidos, facilitando el seguimiento y la toma de decisiones financieras."
+description: "El informe de impagados en Unified PMS es una herramienta esencial para gestionar las reservas con pagos vencidos. Esta funcionalidad permite a los administradores de hoteles tener una visión clara de l"
 ---
 
-El informe de impagados en Unified PMS permite a los administradores de hoteles gestionar y visualizar las reservas con pagos vencidos, facilitando el seguimiento y la toma de decisiones financieras.
+El informe de impagados en Unified PMS es una herramienta esencial para gestionar las reservas con pagos vencidos. Esta funcionalidad permite a los administradores de hoteles tener una visión clara de las deudas pendientes y tomar decisiones informadas para mejorar la gestión financiera del establecimiento.
 
 ## ¿Qué es y para qué sirve?
 
-Esta sección del sistema de gestión hotelera (PMS) está diseñada para proporcionar una visión clara y detallada de las reservas que tienen pagos pendientes. Esto ayuda a los administradores a identificar rápidamente los casos de impago y tomar medidas adecuadas para resolverlos.
+El informe de impagados muestra las reservas con pagos vencidos, permitiendo a los usuarios identificar rápidamente las deudas pendientes y tomar acciones para su resolución. Esta sección es crucial para mantener la salud financiera del hotel.
 
 <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Vista principal del informe de impagados" />
 
-## Cómo usar el Informe de Impagados
+## Guía paso a paso
 
 <Steps>
-  <Step title="Acceder al informe" icon="mouse-pointer-click">
-    En el menú lateral izquierdo, haga clic en el icono correspondiente al informe de impagados para abrir la sección.
+  <Step title="Acceder al informe de impagados" icon="file-text">
+    Para acceder al informe, navegue a la sección **Atrasado** desde el menú principal. Aquí encontrará un resumen de los pagos totales, pagados y pendientes.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Acceder al informe" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues-smart-00.png" alt="Vista inicial del informe de impagados" />
   </Step>
-  <Step title="Seleccionar el periodo" icon="calendar">
-    Use los botones **Periodo anterior** y **Año anterior** para ajustar el periodo de tiempo que desea revisar.
+  <Step title="Filtrar por periodo" icon="calendar">
+    Utilice los botones **Periodo anterior** y **Año anterior** para ajustar el rango de fechas del informe según sus necesidades.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Seleccionar el periodo" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Opciones de filtrado por periodo" />
   </Step>
-  <Step title="Filtrar resultados" icon="filter">
-    Introduzca términos en el campo **Buscar columna...** para filtrar las reservas según sus necesidades específicas.
+  <Step title="Buscar y agrupar datos" icon="search">
+    Use el campo **Buscar columna...** para localizar información específica. Arrastre columnas para agrupar filas según sus preferencias.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Filtrar resultados" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Campo de búsqueda y agrupación de datos" />
   </Step>
-  <Step title="Revisar detalles de reservas" icon="eye">
-    Examine los detalles de cada reserva en la tabla, que incluye columnas como **Nombre**, **Apellido**, **Nº de Reserva**, **Recibida**, **Llegada**, **Salida**, **Factura**, y **Fecha Factura**.
+  <Step title="Ajustar el tamaño de página" icon="layout">
+    Cambie el tamaño de página en la parte inferior para ver más o menos registros a la vez.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Revisar detalles" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-overdues.png" alt="Ajuste de tamaño de página" />
   </Step>
 </Steps>
 
-<Callout kind="tip">
-  Puede guardar filtros personalizados para usarlos en el futuro haciendo clic en **Filtros guardados**.
-</Callout>
-
-<Callout kind="info">
-  Las notificaciones push están desactivadas, asegúrese de activarlas si desea recibir alertas en tiempo real.
-</Callout>
-
 ## Preguntas frecuentes
 
-### ¿Cómo puedo activar las notificaciones push?
-
-Para activar las notificaciones push, diríjase a la configuración de su cuenta y habilite las notificaciones en la sección correspondiente.
-
-### ¿Qué significa el porcentaje de -100% vs anterior?
-
-Este porcentaje indica una disminución total en los pagos recibidos en comparación con el periodo anterior seleccionado.
+<ExpandableGroup>
+  <Expandable title="¿Cómo puedo activar las notificaciones push?" default-open="false">
+    Las notificaciones push se pueden activar desde la configuración de usuario en el menú principal. Asegúrese de tener los permisos adecuados para realizar cambios en las notificaciones.
+  </Expandable>
+  <Expandable title="¿Qué significa el porcentaje de -100% vs anterior?" default-open="false">
+    Este porcentaje indica una disminución completa en comparación con el periodo anterior, lo que puede significar que no hay pagos pendientes en el periodo actual.
+  </Expandable>
+  <Expandable title="¿Puedo exportar el informe de impagados?" default-open="false">
+    Actualmente, la exportación del informe no está disponible directamente desde esta sección. Sin embargo, puede copiar los datos a una hoja de cálculo externa para su análisis.
+  </Expandable>
+</ExpandableGroup>

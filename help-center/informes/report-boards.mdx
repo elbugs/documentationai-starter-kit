@@ -1,43 +1,51 @@
 ---
 title: "Informe de Régimenes"
-description: "El informe de Régimenes en el sistema Unified PMS permite a los usuarios gestionar y visualizar los servicios de pensión ofrecidos por el hotel, facilitando la administración de reservas y servicios adi"
+description: "En este artículo, exploraremos la sección de \"Informe de Régimenes\" en el sistema Unified PMS. Esta sección es esencial para gestionar los servicios de pensión ofrecidos por el hotel. A continuación, te"
 ---
 
-El informe de Régimenes en el sistema Unified PMS permite a los usuarios gestionar y visualizar los servicios de pensión ofrecidos por el hotel, facilitando la administración de reservas y servicios adicionales.
+En este artículo, exploraremos la sección de "Informe de Régimenes" en el sistema Unified PMS. Esta sección es esencial para gestionar los servicios de pensión ofrecidos por el hotel. A continuación, te guiaremos a través de los pasos para navegar y utilizar esta funcionalidad de manera efectiva.
 
 ## ¿Qué es y para qué sirve?
 
-El informe de Régimenes es una herramienta dentro del sistema de gestión hotelera Unified PMS que permite a los administradores y recepcionistas visualizar y gestionar los servicios de pensión. Esta funcionalidad es esencial para mantener un control eficiente sobre los servicios ofrecidos a los huéspedes, asegurando que la información esté siempre actualizada y accesible.
+La sección "Informe de Régimenes" en Unified PMS permite a los administradores de hoteles gestionar y supervisar los servicios de pensión. Esta herramienta es crucial para optimizar la oferta de servicios y mejorar la experiencia del huésped.
 
-<Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards.png" alt="Vista general" />
+<Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards.png" alt="Vista principal de la página de Informe de Régimenes" />
 
-## Cómo usar el Informe de Régimenes
+## Guía paso a paso
 
 <Steps>
-  <Step title="Acceder a la sección de Régimenes" icon="mouse-pointer-click">
-    Navegue al menú lateral izquierdo y haga clic en el icono correspondiente a **Régimenes**. Esto le llevará a la vista principal de los informes de régimenes.
+  <Step title="Acceder a la sección de Roles" icon="users">
+    Para gestionar los roles de usuario, dirígete a la sección de **Roles** en el menú de ajustes.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards.png" alt="Vista principal" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards-smart-04.png" alt="Añadir rol: Open add role modal" />
   </Step>
-  <Step title="Explorar servicios de pensión" icon="eye">
-    Una vez en la sección, podrá explorar los diferentes servicios de pensión disponibles. Aunque la captura no muestra datos, aquí se listarían los servicios activos.
+  <Step title="Crear una API Key" icon="key">
+    En la sección de **API keys**, puedes crear nuevas claves de API para integrar servicios externos.
 
-    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards.png" alt="Vista principal" />
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards-smart-09.png" alt="Crear API key: Open create API key modal" />
+  </Step>
+  <Step title="Configurar la comunicación" icon="mail">
+    Gestiona las configuraciones de comunicación para personalizar la interacción con los huéspedes.
+
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards-smart-12.png" alt="Comunicación: Explore communication settings" />
+  </Step>
+  <Step title="Crear una plantilla de comunicación" icon="edit">
+    Puedes crear plantillas de comunicación para WhatsApp y otros medios, asegurando mensajes consistentes.
+
+    <Image src="https://raw.githubusercontent.com/elbugs/hotelgest-Docs-Assets/main/screenshots/report-boards-smart-13.png" alt="Crear plantilla: Open create communication template modal" />
   </Step>
 </Steps>
 
-<Callout kind="info">
-  Actualmente, no hay datos visibles en la captura, pero en un entorno operativo, se mostrarían los servicios de pensión activos.
-</Callout>
-
-<Callout kind="tip">
-  Use el botón **AR** para cambiar configuraciones regionales o de idioma si es necesario.
-</Callout>
-
 ## Preguntas frecuentes
 
-### ¿Cómo puedo añadir un nuevo servicio de pensión?
-Actualmente, la captura no muestra un botón específico para añadir nuevos servicios. Consulte con el administrador del sistema para más detalles sobre cómo realizar esta acción.
-
-### ¿Qué hago si no veo ningún servicio listado?
-Verifique que los servicios de pensión estén correctamente configurados en el sistema. Si el problema persiste, contacte al soporte técnico para asistencia adicional.
+<ExpandableGroup>
+  <Expandable title="¿Cómo puedo añadir un nuevo rol?" default-open="false">
+    Para añadir un nuevo rol, ve a la sección de **Roles** en el menú de ajustes y selecciona **Añadir rol**. Sigue las instrucciones en pantalla para completar el proceso.
+  </Expandable>
+  <Expandable title="¿Qué debo hacer si pierdo una API Key?" default-open="false">
+    Si pierdes una API Key, deberás crear una nueva desde la sección de **API keys**. Recuerda que una vez creada, no podrás visualizarla nuevamente, así que asegúrate de guardarla en un lugar seguro.
+  </Expandable>
+  <Expandable title="¿Cómo configuro el servidor SMTP?" default-open="false">
+    En la sección de **Comunicación**, puedes configurar el servidor SMTP para gestionar los correos electrónicos de confirmación. Asegúrate de ingresar correctamente los detalles del servidor para evitar problemas de envío.
+  </Expandable>
+</ExpandableGroup>
