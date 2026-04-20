@@ -62,6 +62,10 @@
             "icon": "settings",
             "pages": [
               {
+                "title": "Detalles",
+                "path": "detalles"
+              },
+              {
                 "title": "Housekeeping",
                 "path": "help-center/operaciones/housekeeping",
                 "icon": "spray-can"
