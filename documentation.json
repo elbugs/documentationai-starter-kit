@@ -94,6 +94,11 @@
                 "title": "Modificar fecha sprint",
                 "path": "help-center/operaciones/modificar-la-fecha-de-finalizacion-de-un-sprint",
                 "icon": "calendar"
+              },
+              {
+                "title": "Gestionar el Dashboard y las reservas",
+                "path": "help-center/operaciones/gestionar-el-dashboard-y-las-reservas",
+                "icon": "file-text"
               }
             ]
           },
