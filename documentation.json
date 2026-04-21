@@ -241,6 +241,11 @@
                 "title": "Depósitos Alquiler",
                 "path": "help-center/informes/report-rental-deposits",
                 "icon": "key"
+              },
+              {
+                "title": "Informe de reservas",
+                "path": "help-center/informes/informe-de-reservas",
+                "icon": "file-text"
               }
             ]
           },
